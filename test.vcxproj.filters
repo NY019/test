@@ -47,6 +47,9 @@
     <ClInclude Include="game.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Icon\game.ico">
@@ -59,6 +62,9 @@
       <Filter>リソース ファイル</Filter>
     </Image>
     <Image Include="Image\player.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="game.ico">
       <Filter>リソース ファイル</Filter>
     </Image>
   </ItemGroup>

@@ -30,9 +30,11 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="mouse.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="shape.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="game.ico" />
     <Image Include="Icon\game.ico" />
     <Image Include="Image\baku1.png" />
     <Image Include="Image\charachip.png" />
