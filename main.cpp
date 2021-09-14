@@ -4,6 +4,9 @@
 #include "FPS.h"		//FPSの処理
 #include "mouse.h"		//マウスの処理
 #include "shape.h"		//図形の処理
+#include "font.h"
+
+
 
 //独自のマクロ定義
 
@@ -32,6 +35,8 @@ BOOL IsFadeIn = FALSE;		//フェードイン
 
 int fadeTimeMill = 2000;					//切り替えミリ秒
 int fadeTimeMax = fadeTimeMill / 1000 * 60;	//ミリ秒をフレーム秒に変換
+
+
 
 //フェードアウト
 int fadeOutCntInit = 0;				//初期値
@@ -129,6 +134,8 @@ int WINAPI WinMain(
 	//最初のシーンは、タイトル画面から
 	GameScene = GAME_SCENE_TITLE;
 
+	if (FontAdd() == FALSE) { return FALSE; }
+
 	//ゲーム読み込み
 	if (!GameLoad())
 	{
@@ -207,6 +214,8 @@ int WINAPI WinMain(
 		ScreenFlip();	//ダブルバッファリングした画面を描画
 	}
 
+	FontRemove();
+
 	//データ削除
 	GameDelete();
 
@@ -229,10 +238,12 @@ BOOL GameLoad(VOID)
 	if (LoadImageDivMem(&sampleDivImg, ".\\Image\\baku1.png", 8, 2) == FALSE) { return FALSE; }
 
 	//サンプル分割画像を読み込み
-	if (LoadImageDivMem(&samplePlayerImg, ".\\Image\\charachip.png", 3, 4) == FALSE) { return FALSE; }
+	if (LoadImageDivMem(&samplePlayerImg, ".\\Image\\dragon.png", 3, 4) == FALSE) { return FALSE; }
 
 	//サンプルBGMを読み込み
 	if (LoadAudio(&sampleBGM, ".\\Audio\\ブリキのPARADE.mp3", 128, DX_PLAYTYPE_LOOP) == FALSE) { return FALSE; }
+
+	if (FontCreate() == FALSE) { return FALSE; }
 
 	return TRUE;	//全て読み込みた！
 }
@@ -342,11 +353,17 @@ VOID TitleDraw(VOID)
 		DrawDivImageChara(&samplePlayerImg);//サンプル分割画像の描画
 	}
 
+	DrawStringToHandle(100, 100, "MS ゴシック", GetColor(0, 0, 0), sampleFont1.handle);
+
+	DrawStringToHandle(500, 300, "ほおすぎ", GetColor(0, 0, 0), Hozuki.handle);
+
 	//ゲーム内時間
 	DrawFormatString(500, 50, GetColor(0, 0, 0), "TIME:%3.2f", GetGameTime());
 
 	//現在の日付と時刻
 	DrawFormatString(500, 70, GetColor(0, 0, 0), "DATE:%4d/%2d/%2d %2d:%2d:%2d", fps.NowDataTime.Year, fps.NowDataTime.Mon, fps.NowDataTime.Day, fps.NowDataTime.Hour, fps.NowDataTime.Min, fps.NowDataTime.Sec);
+
+	DrawStringToHandle(800, 200, Hozuki.Name, GetColor(0, 0, 0), Hozuki.handle);
 
 	DrawString(0, 0, "タイトル画面", GetColor(0, 0, 0));
 	return;
